@@ -1,61 +1,41 @@
-class Auto:
-    def __init__(self, marca, modelo):
-        self.marca = marca
-        self.modelo = modelo
-        self.encendido = False
-        self.en_movimiento = False
+#Libreria
 
-    def encender(self):
-        if not self.encendido:
-            self.encendido = True
-            print(f"El auto {self.marca} {self.modelo} está encendido.")
-        else:
-            print(f"El auto {self.marca} {self.modelo} ya está encendido.")
+class ProductoLibreria:
+    def __init__(self, tipo, titulo, autor_o_editor, precio_compra, categoria):
+        self.tipo = tipo  # 'Libro' o 'Revista'
+        self.titulo = titulo
+        self.autor_o_editor = autor_o_editor
+        self.precio_compra = precio_compra
+        self.precio_venta = precio_compra * 1.25  # Margen de ganancia del 25%
+        self.categoria = categoria  # Género del libro o tipo de revista (semanal/mensual)
+    
+    def mostrar_informacion(self):
+        print(f"Tipo: {self.tipo}")
+        print(f"Título: {self.titulo}")
+        print(f"Autor/Editor: {self.autor_o_editor}")
+        print(f"Categoría: {self.categoria}")
+        print(f"Precio Compra: {self.precio_compra}")
+        print(f"Precio Venta: {self.precio_venta}")
 
-    def apagar(self):
-        if self.encendido and not self.en_movimiento:
-            self.encendido = False
-            print(f"El auto {self.marca} {self.modelo} está apagado.")
-        elif self.en_movimiento:
-            print(f"El auto {self.marca} {self.modelo} no puede apagarse mientras está en movimiento.")
-        else:
-            print(f"El auto {self.marca} {self.modelo} ya está apagado.")
+# Registrando un libro
+libro = ProductoLibreria(
+    tipo="Libro", 
+    titulo="Cien Años de Soledad", 
+    autor_o_editor="Gabriel García Márquez", 
+    precio_compra=20.0, 
+    categoria="Novela"
+)
 
-    def avanzar(self):
-        if self.encendido:
-            self.en_movimiento = True
-            print(f"El auto {self.marca} {self.modelo} está avanzando.")
-        else:
-            print(f"El auto {self.marca} {self.modelo} no puede avanzar porque está apagado.")
+# Registrando una revista
+revista = ProductoLibreria(
+    tipo="Revista", 
+    titulo="National Geographic", 
+    autor_o_editor="National Geographic Editors", 
+    precio_compra=5.0, 
+    categoria="Mensual"
+)
 
-    def retroceder(self):
-        if self.encendido:
-            self.en_movimiento = True
-            print(f"El auto {self.marca} {self.modelo} está retrocediendo.")
-        else:
-            print(f"El auto {self.marca} {self.modelo} no puede retroceder porque está apagado.")
-
-    def frenar(self):
-        if self.en_movimiento:
-            self.en_movimiento = False
-            print(f"El auto {self.marca} {self.modelo} ha frenado.")
-        else:
-            print(f"El auto {self.marca} {self.modelo} no está en movimiento para frenar.")
-
-    def estado(self):
-        estado_encendido = "encendido" if self.encendido else "apagado"
-        estado_movimiento = "en movimiento" if self.en_movimiento else "detenido"
-        print(f"El auto {self.marca} {self.modelo} está {estado_encendido} y {estado_movimiento}.")
-
-
-# Crear una instancia de la clase Auto
-mi_auto = Auto("Toyota", "Corolla")
-
-# Llamar a los métodos
-mi_auto.encender()
-mi_auto.avanzar()
-mi_auto.frenar()
-mi_auto.retroceder()
-mi_auto.frenar()
-mi_auto.apagar()
-mi_auto.estado()
+# Mostrando la información
+libro.mostrar_informacion()
+print("\n")
+revista.mostrar_informacion()
