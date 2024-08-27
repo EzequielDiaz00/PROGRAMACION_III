@@ -1,3 +1,5 @@
+# Prgrama para registrar las asistencias de los alumnos
+
 from datetime import datetime
 
 class Estudiante:

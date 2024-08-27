@@ -1,8 +1,13 @@
+# Programa para tienda de Doña Mari
+
+
+# Clase de producto 
 class Producto:
     def __init__(self, nombre, precio_unitario):
         self.nombre = nombre
         self.precio_unitario = precio_unitario
 
+# Clase de Venta
 class Venta:
     def __init__(self):
         self.productos = []
@@ -21,6 +26,7 @@ class Venta:
         print(f"Total: ${total}")
         return total
 
+# Clase de Proveedor
 class Proveedor:
     def __init__(self):
         self.inventario = {}
@@ -34,6 +40,7 @@ class Proveedor:
 def main():
     venta = Venta()
     
+    # Datos de venta
     while True:
         nombre_producto = input("Ingrese el nombre del producto vendido (o 'fin' para terminar): ")
         if nombre_producto.lower() == 'fin':
@@ -57,6 +64,7 @@ def main():
     
     proveedor = Proveedor()
     
+    # Datos de compra de productos
     while True:
         nombre_producto = input("Ingrese el nombre del producto recibido del proveedor (o 'fin' para terminar): ")
         if nombre_producto.lower() == 'fin':

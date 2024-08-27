@@ -1,3 +1,5 @@
+# Programa para guardar los datos del cliente y servicios del Hotel
+
 class Habitacion:
     def __init__(self, tipo, precio_noche):
         self.tipo = tipo

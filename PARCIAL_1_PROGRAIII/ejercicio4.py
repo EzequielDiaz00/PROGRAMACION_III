@@ -1,3 +1,5 @@
+# Programa para ingresar los datos y mostral el pago de planilla de los trabajadores
+
 class Empleado:
     def __init__(self, nombre, antiguedad):
         self.nombre = nombre
