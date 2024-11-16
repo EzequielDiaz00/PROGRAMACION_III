@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+a {
+    margin: 10px;
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 18px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

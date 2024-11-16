@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Groovify</title>
+  <link rel="stylesheet" href="{% static 'css/css2.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Groovify</h1>
+    <h2>Music Player</h2>
+
+    <!-- Div to hold audio elements -->
+    <div id="audio-list">
+      {% for audio_file in audio_files %}
+        <div class="audio-container">
+          <audio controls>
+            <source src="{% static 'audio/'|add:audio_file %}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p>{{ audio_file }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

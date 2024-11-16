@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Artista</title>
+  <link rel="stylesheet" href="{% static 'css/css1.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registro de Artista</h2>
+    <form id="artist-register-form">
+      <input type="email" id="emailArtist" placeholder="Correo Electrónico" required>
+      <input type="password" id="passArtist" placeholder="Contraseña" required>
+      <input type="text" id="nameArtist" placeholder="Nombre del Artista" required>
+      <button id="submitRegisterArtist">Registrar Artista</button>
+    </form>
+    <br>
+    <br>
+    <a href="{% url 'register_user' %}">Registrarme como usuario</a>
+    <br>
+    <br>
+    <a href="{% url 'login' %}">Iniciar Sesion</a>
+    <p id="error-message"></p>
+  </div>
+
+  <script type="module" src="{% static 'js/fireRegisterArtist.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Groovify</title>
+  <link rel="stylesheet" href="{% static 'css/css2.css' %}">
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyByhyHJGb2m1XknKGCH5RUvQzIdri5ex9w",
+      authDomain: "groovify-ugb.firebaseapp.com",
+      projectId: "groovify-ugb",
+      storageBucket: "groovify-ugb.appspot.com",
+      messagingSenderId: "310040910442",
+      appId: "1:310040910442:web:3f87829a87bbb9196d8813"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+
+    // Get reference to the 'music' folder in Firebase Storage
+    const musicRef = ref(storage, 'music/');
+
+    // List all files in the 'music' folder
+    listAll(musicRef).then((res) => {
+      res.items.forEach((itemRef) => {
+        // Get the download URL for each audio file
+        getDownloadURL(itemRef).then((url) => {
+          // Create a new audio element and append it to the page
+          const audioElement = document.createElement('audio');
+          audioElement.src = url;
+          audioElement.controls = true;
+          audioElement.classList.add('audio-player');
+          document.getElementById('audio-list').appendChild(audioElement);
+        }).catch((error) => {
+          console.error("Error getting audio file URL:", error);
+        });
+      });
+    }).catch((error) => {
+      console.error("Error listing files:", error);
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Groovify</h1>
+    <h2>Music Player</h2>
+
+    <!-- Div to hold audio elements -->
+    <div id="audio-list"></div>
+
+  </div>
+</body>
+</html>

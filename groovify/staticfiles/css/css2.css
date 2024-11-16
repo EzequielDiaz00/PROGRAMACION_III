@@ -1,0 +1,15 @@
+.container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1, h2 {
+    font-family: Arial, sans-serif;
+  }
+  
+  .audio-player {
+    margin: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
