@@ -1,29 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 {% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Groovify</title>
+  <title>Groovify - Plataforma de Música</title>
   <link rel="stylesheet" href="{% static 'css/css2.css' %}">
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Groovify</h1>
-    <h2>Music Player</h2>
-
-    <!-- Div to hold audio elements -->
-    <div id="audio-list">
-      {% for audio_file in audio_files %}
-        <div class="audio-container">
-          <audio controls>
-            <source src="{% static 'audio/'|add:audio_file %}" type="audio/mpeg">
-            Your browser does not support the audio element.
-          </audio>
-          <p>{{ audio_file }}</p>
-        </div>
-      {% endfor %}
+  <!-- Barra de navegación -->
+  <header class="navbar">
+    <div class="logo">
+      <h1>Groovify</h1>
     </div>
-  </div>
+    <nav>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Buscar</a></li>
+        <li><a href="#">Mis Listas</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Reproductor -->
+  <main>
+    <section id="player" class="player">
+      <div id="player_controls" class="player-controls">
+        <button id="player_back">⏮️</button>
+        <button id="player_play">▶️</button>
+        <button id="player_pause">⏸</button>
+        <button id="player_stop">⏹️</button>
+        <button id="player_skip">⏭️</button>
+      </div>
+      <div id="song_info" class="song-info">
+        <p>Nombre de la Canción - Artista</p>
+      </div>
+      <input id="progressbarSong" type="range" min="0" max="100" value="50" class="progress-bar">
+    </section>
+  </main>
+
+  <!-- Carga la lista de canciones y el script del reproductor -->
+  <script>
+    const playlist = [
+      "{% static 'audio/song1.mp3' %}",
+      "{% static 'audio/song2.mp3' %}",
+      "{% static 'audio/song3.mp3' %}"
+    ];
+  </script>
+  <script src="{% static 'js/dashboardUser.js' %}"></script>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy; 2024 Groovify. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
