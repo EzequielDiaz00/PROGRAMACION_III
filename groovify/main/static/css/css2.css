@@ -8,8 +8,8 @@
 /* Estilos generales */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #011C26; 
+  color: #FFFFFF; 
 }
 
 a {
@@ -18,9 +18,9 @@ a {
 }
 
 header, footer {
-  background-color: #222;
+  background-color: #222; 
   color: #fff;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
 }
 
@@ -36,70 +36,95 @@ header, footer {
 }
 
 .navbar a {
-  color: white;
+  color: #FFF; 
   font-weight: bold;
   padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar a:hover {
-  background-color: #444;
+  background-color: #048ABF; 
+  color: #011C26; 
   border-radius: 5px;
 }
 
-/* Estilos para la sección principal */
+/* Sección principal */
 main {
   padding: 20px;
 }
 
 /* Sección de canciones destacadas */
-.featured {
-  margin-bottom: 30px;
+.featured-song {
+  text-align: center;
+  padding: 20px;
+  background-color: #222; 
+  color: #04C4D9; 
+  border-radius: 10px;
 }
 
-.featured h2 {
+.featured-artist {
   text-align: center;
+  padding: 20px;
+  background-color: #222; 
+  color: #04C4D9; 
+  border-radius: 10px;
+}
+
+.featured-song h2 {
   margin-bottom: 20px;
+  font-size: 24px;
 }
 
-.track-list {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.track-item {
-  width: 150px;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.song-list {
+  margin: 20px auto;
   padding: 10px;
-}
-
-.track-item img {
-  width: 100%;
+  background-color: #011C26; 
   border-radius: 10px;
+  max-width: 600px;
 }
 
-.track-info {
-  margin-top: 10px;
+.song-item {
+  padding: 15px;
+  margin: 10px 0;
+  font-size: 18px;
+  color: #BF0449; 
+  background-color: #048ABF; 
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.track-info h3 {
-  font-size: 14px;
-  font-weight: bold;
+.artist-list {
+  display: flex;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #011C26; 
+  border-radius: 10px;
+  max-width: 600px;
 }
 
-.track-info p {
-  font-size: 12px;
-  color: #777;
+.artist-item {
+  padding: 15px;
+  margin: 10px 10px;
+  font-size: 18px;
+  color: #BF0449; 
+  background-color: #048ABF; 
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* Estilos del reproductor */
+.song-item:hover {
+  background-color: #04C4D9; 
+  color: #011C26; 
+}
+
+/* Reproductor */
 .player {
-  background-color: #222;
-  color: #fff;
+  background-color: #222; 
+  color: #FFFFFF; 
   padding: 20px;
   text-align: center;
   border-radius: 10px;
@@ -107,65 +132,59 @@ main {
 }
 
 .player-controls button {
-  background-color: #444;
+  background-color: #048ABF; 
   border: none;
-  color: white;
+  color: #FFFFFF; 
   font-size: 24px;
   margin: 0 10px;
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
   border-radius: 50%;
   transition: background-color 0.3s;
 }
 
 .player-controls button:hover {
-  background-color: #555;
+  background-color: #04C4D9; 
 }
 
 .song-info p {
   margin: 10px 0;
-  font-size: 18px;
-}
-
-.featured-song {
-  text-align: center;
-  padding: 20px;
-  background-color: #333;
-  color: white;
-  border-radius: 10px;
-}
-
-.song-list {
-  margin: 20px;
-  background-color: #222;
-  padding: 10px;
-}
-
-.song-item:hover {
-  color: #222;
-  background-color: cyan;
-}
-
-.song-item {
-  padding: 10px;
   font-size: 20px;
-  margin: 10px;
-  color: cyan;
-  background-color: #333;
-  width: 500px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
+/* Barra de progreso */
 .progress-bar {
   width: 100%;
   margin-top: 10px;
   background-color: #444;
-  border-radius: 5px;
   height: 8px;
+  border-radius: 5px;
+  outline: none;
+  appearance: none;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background-color: #04C4D9; 
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background-color: #04C4D9; 
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 footer {
   margin-top: 50px;
-  font-size: 12px;
+  font-size: 14px;
+  color: #FFFFFF;
+  background-color: #222;
+  padding: 10px 0;
+  border-top: 2px solid #011C26;
 }
