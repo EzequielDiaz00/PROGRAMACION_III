@@ -29,49 +29,55 @@
 
   <!-- Sección principal -->
   <main>
-    <section class="featured-artist">
-      <h2>Generos musicales</h2>
-      <ul class="artist-list">
-        <ul class="artist-item">EDM</ul>
-        <ul class="artist-item">Reggaeton</ul>
-        <ul class="artist-item">Cumbia</ul>
-        <ul class="artist-item">Rap</ul>
-        <ul class="artist-item">Hip-Hop</ul>
-      </ul>
+    <!-- Sección de la lista de canciones y reproductor en paralelo -->
+    <section id="main" class="featured-song-player">
+      <section class="featured-song">
+        <h2>Lista de Canciones</h2>
+        <ul class="song-list">
+          {% for file in audio_files %}
+          <li class="song-item" data-file="{% static 'audio/' %}{{ file }}">
+            {{ file|slice:":-4" }} <!-- Muestra el nombre sin la extensión -->
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Reproductor a la par de la lista de canciones -->
+      <section id="player" class="player">
+        <img src="{% static 'img/logo-player-100.jpg' %}" alt="portada-song" class="portada-song">
+        <div id="player_controls" class="player-controls">
+          <button id="player_back">⏮️</button>
+          <button id="player_play">▶️</button>
+          <button id="player_pause">⏸</button>
+          <button id="player_stop">⏹️</button>
+          <button id="player_skip">⏭️</button>
+        </div>
+        <div id="song_info" class="song-info">
+          <p>Selecciona una canción para reproducir</p>
+        </div>
+        <input id="progressbarSong" type="range" min="0" max="100" value="0" class="progress-bar">
+      </section>
     </section>
 
-    <section class="featured-song">
-      <h2>Lista de Canciones</h2>
-      <ul class="song-list">
-        {% for file in audio_files %}
-        <li class="song-item" data-file="{% static 'audio/' %}{{ file }}">
-          {{ file|slice:":-4" }} <!-- Muestra el nombre sin la extensión -->
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-    <br>
-    <br>
-    <!-- Reproductor -->
-    <section id="player" class="player">
-      <br>
-      <img src="{% static 'img/logo-player-100.jpg' %}" alt="portada-song" class="portada-song">
-      <br>
-      <br>
-      <br>
-      <div id="player_controls" class="player-controls">
-        <button id="player_back">⏮️</button>
-        <button id="player_play">▶️</button>
-        <button id="player_pause">⏸</button>
-        <button id="player_stop">⏹️</button>
-        <button id="player_skip">⏭️</button>
-      </div>
-      <br>
-      <div id="song_info" class="song-info">
-        <p>Selecciona una canción para reproducir</p>
-      </div>
-      <br>
-      <input id="progressbarSong" type="range" min="0" max="100" value="0" class="progress-bar">
+    <!-- Sección de géneros musicales y artistas en paralelo -->
+    <section class="featured-genere-artist">
+      <section class="featured-genere">
+        <h2>Generos musicales</h2>
+        <ul class="genere-list">
+          <li class="genere-item">EDM</li>
+          <li class="genere-item">Reggaeton</li>
+          <li class="genere-item">Cumbia</li>
+          <li class="genere-item">Rap</li>
+          <li class="genere-item">Hip-Hop</li>
+        </ul>
+      </section>
+
+      <section class="featured-artist">
+        <h2>Artistas</h2>
+        <ul class="artist-list">
+          <li class="artist-item">Avicii</li>
+        </ul>
+      </section>
     </section>
   </main>
 

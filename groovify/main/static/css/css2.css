@@ -10,21 +10,30 @@ body {
   font-family: Arial, sans-serif;
   background-color: #011C26;
   color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  /* Para que header se coloque encima de main */
+  height: 100vh;
+  overflow-x: hidden;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-header,
-footer {
+/* Barra de navegación */
+header {
   background-color: #222;
   color: #fff;
   padding: 15px;
   text-align: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  /* Asegura que ocupe todo el ancho */
 }
 
+header .logo h1 {
+  margin: 0;
+}
+
+/* Barra de navegación */
 .navbar ul {
   list-style: none;
   display: flex;
@@ -51,63 +60,36 @@ footer {
 
 /* Sección principal */
 main {
+  display: flex;
+  flex-direction: column;
+  /* Asegura que los elementos de main se alineen verticalmente */
+  flex: 1;
+  /* Ocupa el espacio restante de la pantalla */
   padding: 20px;
 }
 
-/* Sección de canciones destacadas */
+/* Contenedor de canciones y reproductor */
+.featured-song-player {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/* Sección de canciones */
 .featured-song {
-  text-align: center;
-  padding: 20px;
+  flex: 1;
+  /* Cada sección ocupa la mitad del espacio disponible */
   background-color: #222;
   color: #04C4D9;
-  border-radius: 10px;
-}
-
-.featured-artist {
-  text-align: center;
+  border-radius: 10px 0px 0px 10px;
   padding: 20px;
-  background-color: #222;
-  color: #04C4D9;
-  border-radius: 10px;
-}
-
-.featured-song h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-.song-list {
-  margin: 20px auto;
-  padding: 10px;
-  background-color: #011C26;
-  border-radius: 10px;
-  max-width: 600px;
+  text-align: center;
 }
 
 .song-item {
   padding: 15px;
   margin: 10px 0;
-  font-size: 18px;
-  color: #BF0449;
-  background-color: #048ABF;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.artist-list {
-  display: flex;
-  margin: 20px auto;
-  padding: 10px;
-  background-color: #011C26;
-  border-radius: 10px;
-  max-width: 600px;
-}
-
-.artist-item {
-  padding: 15px;
-  margin: 10px 10px;
   font-size: 18px;
   color: #BF0449;
   background-color: #048ABF;
@@ -123,13 +105,20 @@ main {
 }
 
 /* Reproductor */
+
 .player {
+  flex: 1;
+  /* Cada sección ocupa la mitad del espacio disponible */
   background-color: #222;
-  color: #FFFFFF;
+  color: #04C4D9;
+  border-radius: 10px;
   padding: 20px;
   text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.player img {
+  width: 250px;
+  margin-bottom: 15px;
 }
 
 .player-controls button {
@@ -148,12 +137,6 @@ main {
   background-color: #04C4D9;
 }
 
-.song-info p {
-  margin: 10px 0;
-  font-size: 20px;
-}
-
-/* Barra de progreso */
 .progress-bar {
   width: 100%;
   margin-top: 10px;
@@ -181,6 +164,47 @@ main {
   cursor: pointer;
 }
 
+/* Sección de géneros musicales y artistas en paralelo */
+.featured-genere-artist {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.featured-genere,
+.featured-artist {
+  flex: 1;
+  background-color: #222;
+  color: #04C4D9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.artist-list,
+.genere-list {
+  list-style: none;
+  padding: 0;
+}
+
+.artist-item,
+.genere-item {
+  background-color: #048ABF;
+  color: #BF0449;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.artist-item:hover,
+.genere-item:hover {
+  background-color: #04C4D9;
+  color: #011C26;
+}
+
+/* Footer */
 footer {
   margin-top: 50px;
   font-size: 14px;
@@ -188,8 +212,6 @@ footer {
   background-color: #222;
   padding: 10px 0;
   border-top: 2px solid #011C26;
-}
-
-.portada-song {
-  width: 250px;
+  text-align: center;
+  width: 100%;
 }
