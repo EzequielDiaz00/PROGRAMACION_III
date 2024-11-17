@@ -8,8 +8,8 @@
 /* Estilos generales */
 body {
   font-family: Arial, sans-serif;
-  background-color: #011C26; 
-  color: #FFFFFF; 
+  background-color: #011C26;
+  color: #FFFFFF;
 }
 
 a {
@@ -17,8 +17,9 @@ a {
   color: inherit;
 }
 
-header, footer {
-  background-color: #222; 
+header,
+footer {
+  background-color: #222;
   color: #fff;
   padding: 15px;
   text-align: center;
@@ -36,15 +37,15 @@ header, footer {
 }
 
 .navbar a {
-  color: #FFF; 
+  color: #FFF;
   font-weight: bold;
   padding: 10px 20px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar a:hover {
-  background-color: #048ABF; 
-  color: #011C26; 
+  background-color: #048ABF;
+  color: #011C26;
   border-radius: 5px;
 }
 
@@ -57,16 +58,16 @@ main {
 .featured-song {
   text-align: center;
   padding: 20px;
-  background-color: #222; 
-  color: #04C4D9; 
+  background-color: #222;
+  color: #04C4D9;
   border-radius: 10px;
 }
 
 .featured-artist {
   text-align: center;
   padding: 20px;
-  background-color: #222; 
-  color: #04C4D9; 
+  background-color: #222;
+  color: #04C4D9;
   border-radius: 10px;
 }
 
@@ -78,7 +79,7 @@ main {
 .song-list {
   margin: 20px auto;
   padding: 10px;
-  background-color: #011C26; 
+  background-color: #011C26;
   border-radius: 10px;
   max-width: 600px;
 }
@@ -87,8 +88,8 @@ main {
   padding: 15px;
   margin: 10px 0;
   font-size: 18px;
-  color: #BF0449; 
-  background-color: #048ABF; 
+  color: #BF0449;
+  background-color: #048ABF;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
@@ -99,7 +100,7 @@ main {
   display: flex;
   margin: 20px auto;
   padding: 10px;
-  background-color: #011C26; 
+  background-color: #011C26;
   border-radius: 10px;
   max-width: 600px;
 }
@@ -108,8 +109,8 @@ main {
   padding: 15px;
   margin: 10px 10px;
   font-size: 18px;
-  color: #BF0449; 
-  background-color: #048ABF; 
+  color: #BF0449;
+  background-color: #048ABF;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
@@ -117,14 +118,14 @@ main {
 }
 
 .song-item:hover {
-  background-color: #04C4D9; 
-  color: #011C26; 
+  background-color: #04C4D9;
+  color: #011C26;
 }
 
 /* Reproductor */
 .player {
-  background-color: #222; 
-  color: #FFFFFF; 
+  background-color: #222;
+  color: #FFFFFF;
   padding: 20px;
   text-align: center;
   border-radius: 10px;
@@ -132,9 +133,9 @@ main {
 }
 
 .player-controls button {
-  background-color: #048ABF; 
+  background-color: #048ABF;
   border: none;
-  color: #FFFFFF; 
+  color: #FFFFFF;
   font-size: 24px;
   margin: 0 10px;
   padding: 12px;
@@ -144,7 +145,7 @@ main {
 }
 
 .player-controls button:hover {
-  background-color: #04C4D9; 
+  background-color: #04C4D9;
 }
 
 .song-info p {
@@ -167,7 +168,7 @@ main {
   appearance: none;
   width: 15px;
   height: 15px;
-  background-color: #04C4D9; 
+  background-color: #04C4D9;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -175,7 +176,7 @@ main {
 .progress-bar::-moz-range-thumb {
   width: 15px;
   height: 15px;
-  background-color: #04C4D9; 
+  background-color: #04C4D9;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -187,4 +188,8 @@ footer {
   background-color: #222;
   padding: 10px 0;
   border-top: 2px solid #011C26;
+}
+
+.portada-song {
+  width: 250px;
 }

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 {% load static %}
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Groovify - Plataforma de Música</title>
   <link rel="stylesheet" href="{% static 'css/css2.css' %}">
 </head>
+
 <body>
   <!-- Barra de navegación -->
   <header class="navbar">
@@ -30,11 +32,11 @@
     <section class="featured-artist">
       <h2>Generos musicales</h2>
       <ul class="artist-list">
-          <ul class="artist-item">EDM</ul>
-          <ul class="artist-item">Reggaeton</ul>
-          <ul class="artist-item">Cumbia</ul>
-          <ul class="artist-item">Rap</ul>
-          <ul class="artist-item">Hip-Hop</ul>
+        <ul class="artist-item">EDM</ul>
+        <ul class="artist-item">Reggaeton</ul>
+        <ul class="artist-item">Cumbia</ul>
+        <ul class="artist-item">Rap</ul>
+        <ul class="artist-item">Hip-Hop</ul>
       </ul>
     </section>
 
@@ -42,9 +44,9 @@
       <h2>Lista de Canciones</h2>
       <ul class="song-list">
         {% for file in audio_files %}
-          <li class="song-item" data-file="{% static 'audio/' %}{{ file }}">
-            {{ file|slice:":-4" }} <!-- Muestra el nombre sin la extensión -->
-          </li>
+        <li class="song-item" data-file="{% static 'audio/' %}{{ file }}">
+          {{ file|slice:":-4" }} <!-- Muestra el nombre sin la extensión -->
+        </li>
         {% endfor %}
       </ul>
     </section>
@@ -52,6 +54,11 @@
     <br>
     <!-- Reproductor -->
     <section id="player" class="player">
+      <br>
+      <img src="{% static 'img/logo-player-100.jpg' %}" alt="portada-song" class="portada-song">
+      <br>
+      <br>
+      <br>
       <div id="player_controls" class="player-controls">
         <button id="player_back">⏮️</button>
         <button id="player_play">▶️</button>
@@ -59,9 +66,11 @@
         <button id="player_stop">⏹️</button>
         <button id="player_skip">⏭️</button>
       </div>
+      <br>
       <div id="song_info" class="song-info">
         <p>Selecciona una canción para reproducir</p>
       </div>
+      <br>
       <input id="progressbarSong" type="range" min="0" max="100" value="0" class="progress-bar">
     </section>
   </main>
@@ -79,4 +88,5 @@
     <p>&copy; 2024 Groovify. Todos los derechos reservados.</p>
   </footer>
 </body>
+
 </html>
