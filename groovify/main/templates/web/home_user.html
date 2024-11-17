@@ -11,7 +11,9 @@
   <!-- Barra de navegación -->
   <header class="navbar">
     <div class="logo">
+      <br>
       <h1>Groovify</h1>
+      <br>
     </div>
     <nav>
       <ul>
@@ -23,8 +25,21 @@
     </nav>
   </header>
 
-  <!-- Reproductor -->
+  <!-- Sección principal -->
   <main>
+    <section class="featured-song">
+      <h2>Lista de Canciones</h2>
+      <ul class="song-list">
+        {% for file in audio_files %}
+          <li class="song-item" data-file="{% static 'audio/' %}{{ file }}">
+            {{ file|slice:":-4" }} <!-- Muestra el nombre sin la extensión -->
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+    <br>
+    <br>
+    <!-- Reproductor -->
     <section id="player" class="player">
       <div id="player_controls" class="player-controls">
         <button id="player_back">⏮️</button>
@@ -34,23 +49,21 @@
         <button id="player_skip">⏭️</button>
       </div>
       <div id="song_info" class="song-info">
-        <p>Nombre de la Canción - Artista</p>
+        <p>Selecciona una canción para reproducir</p>
       </div>
-      <input id="progressbarSong" type="range" min="0" max="100" value="50" class="progress-bar">
+      <input id="progressbarSong" type="range" min="0" max="100" value="0" class="progress-bar">
     </section>
   </main>
 
-  <!-- Carga la lista de canciones y el script del reproductor -->
+  <!-- Script -->
   <script>
-    const playlist = [
-      "{% static 'audio/song1.mp3' %}",
-      "{% static 'audio/song2.mp3' %}",
-      "{% static 'audio/song3.mp3' %}"
-    ];
+    const playlist = [];
+    document.querySelectorAll('.song-item').forEach(item => {
+      playlist.push(item.dataset.file); // Agrega las rutas a la lista de reproducción
+    });
   </script>
   <script src="{% static 'js/dashboardUser.js' %}"></script>
 
-  <!-- Pie de página -->
   <footer>
     <p>&copy; 2024 Groovify. Todos los derechos reservados.</p>
   </footer>
