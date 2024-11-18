@@ -111,8 +111,10 @@
   <!-- Script -->
   <script>
     const playlist = [];
-    document.querySelectorAll('.song-item').forEach(item => {
-      playlist.push(item.dataset.file); // Agrega las rutas a la lista de reproducción
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.song-item').forEach(item => {
+        playlist.push(item.dataset.file); // Agrega las rutas a la lista de reproducción
+      });
     });
   </script>
   <script src="{% static 'js/dashboardUser.js' %}"></script>
