@@ -42,6 +42,33 @@
         </ul>
       </section>
 
+      <section id="equalizer" class="equalizer">
+        <h2>Ecualizador</h2>
+        <div class="controls">
+          <div>
+            <label for="bass">Bass</label>
+            <input id="bass" type="range" min="-30" max="30" value="0">
+          </div>
+          <div>
+            <label for="mid-low">Mid-Low</label>
+            <input id="mid-low" type="range" min="-30" max="30" value="0" style="margin-right: 25px;">
+          </div>
+          <div>
+            <label for="mid" style="margin-left: 10px;">Mid</label>
+            <input id="mid" type="range" min="-30" max="30" value="0">
+          </div>
+          <div>
+            <label for="mid-high">Mid-High</label>
+            <input id="mid-high" type="range" min="-30" max="30" value="0" style="margin-right: 29px;">
+          </div>
+          <div>
+            <label for="treble">Treble</label>
+            <input id="treble" type="range" min="-30" max="30" value="0" style="margin-right: 9px;">
+          </div>
+        </div>
+        <canvas id="audioVisualizer" width="225" height="50"></canvas>
+      </section>
+
       <!-- Reproductor a la par de la lista de canciones -->
       <section id="player" class="player">
         <img src="{% static 'img/logo-player-100.jpg' %}" alt="portada-song" class="portada-song">
@@ -61,6 +88,13 @@
 
     <!-- Sección de géneros musicales y artistas en paralelo -->
     <section class="featured-genere-artist">
+      <section class="featured-artist">
+        <h2>Artistas</h2>
+        <ul class="artist-list">
+          <li class="artist-item">Avicii</li>
+        </ul>
+      </section>
+
       <section class="featured-genere">
         <h2>Generos musicales</h2>
         <ul class="genere-list">
@@ -69,13 +103,6 @@
           <li class="genere-item">Cumbia</li>
           <li class="genere-item">Rap</li>
           <li class="genere-item">Hip-Hop</li>
-        </ul>
-      </section>
-
-      <section class="featured-artist">
-        <h2>Artistas</h2>
-        <ul class="artist-list">
-          <li class="artist-item">Avicii</li>
         </ul>
       </section>
     </section>
