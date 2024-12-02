@@ -10,17 +10,16 @@
 <body>
   <div class="form-container">
     <h2>Iniciar sesión</h2>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Correo Electrónico" required>
-      <input type="password" id="password" placeholder="Contraseña" required>
-      <button id="submitLogin" type="submit">Iniciar sesión</button>
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="Correo Electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar sesión</button>
     </form>
     <br>
     <br>
     <a href="{% url 'register_user' %}">Registrarme como usuario</a>
     <p id="error-message"></p>
   </div>
-
-  <script type="module" src="{% static 'js/login.js' %}"></script>
 </body>
 </html>
