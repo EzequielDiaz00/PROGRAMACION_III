@@ -44,14 +44,13 @@
     <section id="main" class="featured-song-player">
       <!-- Lista de canciones y barra de búsqueda -->
       <section class="featured-song">
-        <h2>Lista de Canciones Ordenadas por Artista</h2>
+        <h2>Lista de canciones</h2>
         <br>
+        <form method="get" action="{% url 'home_user' %}" class="search-form">
+          <input type="text" name="query" placeholder="Buscar canciones..." class="search-input">
+          <button type="submit" class="search-button">Buscar</button>
+        </form>
         <ul class="song-list">
-          <form method="get" action="{% url 'home_user' %}" class="search-form">
-            <input type="text" name="query" placeholder="Buscar canciones..." class="search-input">
-            <button type="submit" class="search-button">Buscar</button>
-          </form>
-
           {% for song_url in song_urls|sort_by_artist %}
           <li class="song-item" data-file="{{ song_url }}">
             {{ song_url|extract_song_name }}
@@ -80,6 +79,9 @@
           <p>Selecciona una canción para reproducir</p>
         </div>
         <br>
+        <div id="song-time-info">
+          <span id="current-time">00:00</span> / <span id="remaining-time">00:00</span>
+        </div>
         <input id="progressbarSong" type="range" min="0" max="100" value="0" class="progress-bar">
       </section>
     </section>

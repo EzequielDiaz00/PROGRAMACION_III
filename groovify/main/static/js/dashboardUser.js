@@ -6,6 +6,8 @@ class MusicPlayer {
         this.progressBar = document.getElementById('progressbarSong');
         this.volumeControl = document.getElementById('volumeControl');
         this.songInfo = document.getElementById('song_info');
+        this.currentTimeDisplay = document.getElementById('current-time');
+        this.remainingTimeDisplay = document.getElementById('remaining-time');
         this.init();
     }
 
@@ -91,11 +93,29 @@ class MusicPlayer {
         this.playSong();
     }
 
-    // Actualiza la barra de progreso mientras la canción se reproduce
+    // Actualiza la barra de progreso y muestra los tiempos
     updateProgressBar() {
         if (this.audio.duration) {
-            this.progressBar.value = (this.audio.currentTime / this.audio.duration) * 100;
+            const currentTime = this.audio.currentTime;
+            const duration = this.audio.duration;
+            
+            // Actualiza la barra de progreso
+            this.progressBar.value = (currentTime / duration) * 100;
+
+            // minutos restantes
+            const remainingTime = duration - currentTime;
+            this.remainingTimeDisplay.textContent = this.formatTime(remainingTime);
+
+            // minutos recorridos
+            this.currentTimeDisplay.textContent = this.formatTime(currentTime);
         }
+    }
+
+    // Formatea el tiempo en formato mm:ss
+    formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
     // Configura los controles del reproductor
