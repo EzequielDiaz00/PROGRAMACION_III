@@ -1,8 +1,9 @@
+import datetime
 import os
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from firebase_admin import auth, firestore
+from firebase_admin import auth, firestore, storage
 from .firebase import db
 
 def index(request):
@@ -36,34 +37,6 @@ def register_user_view(request):
 
     return render(request, 'web/register_user.html')
 
-def register_artist_view(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        name = request.POST.get('name')
-
-        try:
-            # Crear artista en Firebase Authentication
-            user = auth.create_user(
-                email=email,
-                password=password
-            )
-
-            # Guardar datos adicionales en Firestore
-            db.collection('artist').document(user.uid).set({
-                'name': name,
-                'email': email,
-                'uid': user.uid,
-                'type': 'artist'
-            })
-
-            return redirect('login')  # Redirigir al login después de registro
-
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-
-    return render(request, 'web/register_artist.html')
-
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
@@ -83,16 +56,21 @@ def login_view(request):
     return render(request, 'web/login.html')
 
 def home_user(request):
-    # Ruta a la carpeta de audio
-    audio_folder = os.path.join(settings.STATIC_ROOT, 'audio')
-    # Obtiene la lista de archivos en la carpeta
-    try:
-        audio_files = os.listdir(audio_folder)
-    except FileNotFoundError:
-        audio_files = []
+    # Obtén el bucket de almacenamiento
+    bucket = storage.bucket()
 
-    # Renderiza la plantilla con los archivos de audio
-    return render(request, 'web/home_user.html', {'audio_files': audio_files})
+    # Obtén todos los blobs en la carpeta 'music/'
+    blobs = bucket.list_blobs(prefix='music/')
 
-def home_artist(request):
-    return render(request, 'web/home_artist.html')
+    # Lista para almacenar las URLs de las canciones
+    song_urls = []
+
+    # Recorre los blobs (archivos) en el bucket
+    for index, blob in enumerate(blobs):
+        # Evitar agregar la primera URL nula
+        if index > 0:  # Omite el primer blob
+            song_url = blob.generate_signed_url(expiration=datetime.timedelta(minutes=60), method='GET')
+            song_urls.append(song_url)
+
+    # Pasa la lista de URLs a la plantilla
+    return render(request, 'web/home_user.html', {'song_urls': song_urls})

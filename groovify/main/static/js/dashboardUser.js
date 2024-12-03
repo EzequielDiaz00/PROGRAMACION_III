@@ -1,168 +1,102 @@
-// Variables globales
-let currentIndex = 0;
-const audio = new Audio();
-const progressBar = document.getElementById('progressbarSong');
-const songInfo = document.getElementById('song_info');
-let audioContext = null; // Asegurarse de que AudioContext se inicializa correctamente
+class MusicPlayer {
+    constructor() {
+        this.audio = new Audio();
+        this.playlist = [];
+        this.currentIndex = 0;
+        this.progressBar = document.getElementById('progressbarSong');
+        this.songInfo = document.getElementById('song_info');
+        this.init();
+    }
 
-// Actualiza la información de la canción
-function updateSongInfo(index) {
-    const songName = playlist[index].split('/').pop();
-    songInfo.innerHTML = `<p>${decodeURIComponent(songName.replace('.mp3', ''))}</p>`;
-}
+    init() {
+        this.loadPlaylist();
+        this.setupControls();
+        this.audio.ontimeupdate = () => this.updateProgressBar();
+        this.audio.onended = () => this.skipSong();
+    }
 
-// Reproduce la canción actual
-function playSong() {
-    audio.play().catch(error => {
-        console.error("Error al intentar reproducir la canción:", error);
-    });
-    updateSongInfo(currentIndex);
-}
-
-// Cambia la canción al hacer clic en una de la lista
-document.addEventListener('DOMContentLoaded', () => {
-    if (playlist.length > 0) {
-        document.querySelectorAll('.song-item').forEach((item, index) => {
-            item.addEventListener('click', () => {
-                // Inicializa el AudioContext solo al hacer clic en la canción
-                if (!audioContext) {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-                    const analyser = audioContext.createAnalyser();
-                    const sourceNode = audioContext.createMediaElementSource(audio);
-                    sourceNode.connect(analyser);
-                    analyser.connect(audioContext.destination);
-
-                    // Filtros Biquad para cada banda
-                    const bass = audioContext.createBiquadFilter();
-                    const midLow = audioContext.createBiquadFilter();
-                    const mid = audioContext.createBiquadFilter();
-                    const midHigh = audioContext.createBiquadFilter();
-                    const treble = audioContext.createBiquadFilter();
-
-                    // Configuración de los filtros
-                    bass.type = 'lowshelf';
-                    bass.frequency.value = 250; // Frecuencia de corte para bajos
-                    bass.gain.value = 0;
-
-                    midLow.type = 'peaking';
-                    midLow.frequency.value = 500; // Frecuencia de corte para medios bajos
-                    midLow.Q.value = 1;
-                    midLow.gain.value = 0;
-
-                    mid.type = 'peaking';
-                    mid.frequency.value = 1000; // Frecuencia de corte para medios
-                    mid.Q.value = 1;
-                    mid.gain.value = 0;
-
-                    midHigh.type = 'peaking';
-                    midHigh.frequency.value = 3000; // Frecuencia de corte para medios altos
-                    midHigh.Q.value = 1;
-                    midHigh.gain.value = 0;
-
-                    treble.type = 'highshelf';
-                    treble.frequency.value = 6000; // Frecuencia de corte para agudos
-                    treble.gain.value = 0;
-
-                    // Conectar los filtros
-                    bass.connect(midLow);
-                    midLow.connect(mid);
-                    mid.connect(midHigh);
-                    midHigh.connect(treble);
-                    treble.connect(analyser);
-
-                    // Ecualizador: Actualiza los valores de los filtros con los controles
-                    document.getElementById('bass').addEventListener('input', (e) => {
-                        bass.gain.value = parseInt(e.target.value);
-                        console.log(`Bass Gain: ${bass.gain.value}`);
-                    });
-
-                    document.getElementById('mid-low').addEventListener('input', (e) => {
-                        midLow.gain.value = parseInt(e.target.value);
-                    });
-
-                    document.getElementById('mid').addEventListener('input', (e) => {
-                        mid.gain.value = parseInt(e.target.value);
-                    });
-
-                    document.getElementById('mid-high').addEventListener('input', (e) => {
-                        midHigh.gain.value = parseInt(e.target.value);
-                    });
-
-                    document.getElementById('treble').addEventListener('input', (e) => {
-                        treble.gain.value = parseInt(e.target.value);
-                    });
-                }
-
-                currentIndex = index; // Actualiza el índice
-                audio.src = playlist[currentIndex];
-
-                // Solo reproduce la canción después de un clic
-                playSong();
-            });
-        });
-
-        // Carga y reproduce la primera canción cuando el usuario hace clic en "play"
-        const playButton = document.getElementById('player_play');
-        playButton.addEventListener('click', () => {
-            loadFirstSong();
+    loadPlaylist() {
+        document.querySelectorAll('.song-item').forEach(item => {
+            const songUrl = item.dataset.file;
+            if (songUrl) {
+                this.playlist.push(songUrl);
+                item.addEventListener('click', () => {
+                    this.currentIndex = this.playlist.indexOf(songUrl);
+                    this.playSong();
+                });
+            }
         });
     }
-});
 
-// Pausa la canción
-function pauseSong() {
-    audio.pause();
-}
-
-// Detiene la canción
-function stopSong() {
-    audio.pause();
-    audio.currentTime = 0;
-}
-
-// Avanza a la siguiente canción
-function skipSong() {
-    currentIndex = (currentIndex + 1) % playlist.length;
-    audio.src = playlist[currentIndex];
-    playSong();
-}
-
-// Retrocede a la canción anterior
-function backSong() {
-    currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-    audio.src = playlist[currentIndex];
-    playSong();
-}
-
-// Reproduce la siguiente canción automáticamente cuando termine
-audio.onended = () => {
-    skipSong();
-};
-
-// Actualiza la barra de progreso
-audio.ontimeupdate = () => {
-    if (audio.duration) {
-        progressBar.value = (audio.currentTime / audio.duration) * 100;
+    updateSongInfo() {
+        const songUrl = this.playlist[this.currentIndex];
+        if (songUrl) {
+            try {
+                // Extraer la parte antes del primer signo de interrogación ("?")
+                const cleanUrl = songUrl.split('?')[0];
+                // Obtener solo el nombre del archivo
+                const fileName = cleanUrl.split('/').pop();
+                // Limpiar el nombre del archivo y hacerlo legible
+                const cleanName = decodeURIComponent(fileName.replace('.mp3', '').replace(/_/g, ' '));
+                this.songInfo.innerHTML = `<p>${cleanName}</p>`;
+            } catch (error) {
+                console.error("Error al procesar el nombre de la canción:", error);
+                this.songInfo.innerHTML = `<p>Archivo desconocido</p>`;
+            }
+        } else {
+            this.songInfo.innerHTML = `<p>No hay información disponible</p>`;
+        }
     }
-};
+    
+       
+    
+    playSong() {
+        const songUrl = this.playlist[this.currentIndex];
+        if (songUrl) {
+            this.audio.src = songUrl;
+            this.audio.play()
+                .then(() => this.updateSongInfo())
+                .catch(err => console.error("Error reproduciendo canción:", err));
+        }
+    }
 
-// Permite cambiar el tiempo de reproducción a través de la barra de progreso
-progressBar.addEventListener('input', (e) => {
-    audio.currentTime = (e.target.value / 100) * audio.duration;
-});
+    pauseSong() {
+        this.audio.pause();
+    }
 
-// Controles
-document.getElementById('player_play').addEventListener('click', playSong);
-document.getElementById('player_pause').addEventListener('click', pauseSong);
-document.getElementById('player_stop').addEventListener('click', stopSong);
-document.getElementById('player_skip').addEventListener('click', skipSong);
-document.getElementById('player_back').addEventListener('click', backSong);
+    stopSong() {
+        this.audio.pause();
+        this.audio.currentTime = 0;
+    }
 
-// Carga y reproduce la primera canción
-function loadFirstSong() {
-    if (playlist.length > 0) {
-        audio.src = playlist[0];
-        playSong();
+    skipSong() {
+        this.currentIndex = (this.currentIndex + 1) % this.playlist.length;
+        this.playSong();
+    }
+
+    backSong() {
+        this.currentIndex = (this.currentIndex - 1 + this.playlist.length) % this.playlist.length;
+        this.playSong();
+    }
+
+    updateProgressBar() {
+        if (this.audio.duration) {
+            this.progressBar.value = (this.audio.currentTime / this.audio.duration) * 100;
+        }
+    }
+
+    setupControls() {
+        document.getElementById('player_play').addEventListener('click', () => this.playSong());
+        document.getElementById('player_pause').addEventListener('click', () => this.pauseSong());
+        document.getElementById('player_stop').addEventListener('click', () => this.stopSong());
+        document.getElementById('player_skip').addEventListener('click', () => this.skipSong());
+        document.getElementById('player_back').addEventListener('click', () => this.backSong());
+        this.progressBar.addEventListener('input', e => {
+            if (this.audio.duration) {
+                this.audio.currentTime = (e.target.value / 100) * this.audio.duration;
+            }
+        });
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => new MusicPlayer());

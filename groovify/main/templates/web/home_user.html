@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 {% load static %}
+{% load song_filters %}
 
 <head>
   <meta charset="UTF-8">
@@ -34,39 +35,12 @@
       <section class="featured-song">
         <h2>Lista de Canciones</h2>
         <ul class="song-list">
-          {% for file in audio_files %}
-          <li class="song-item" data-file="{% static 'audio/' %}{{ file }}">
-            {{ file|slice:":-4" }} <!-- Muestra el nombre sin la extensión -->
+          {% for song_url in song_urls %}
+          <li class="song-item" data-file="{{ song_url }}">
+            {{ song_url|extract_song_name }}
           </li>
           {% endfor %}
         </ul>
-      </section>
-
-      <section id="equalizer" class="equalizer">
-        <h2>Ecualizador</h2>
-        <div class="controls">
-          <div>
-            <label for="bass">Bass</label>
-            <input id="bass" type="range" min="-30" max="30" value="0">
-          </div>
-          <div>
-            <label for="mid-low">Mid-Low</label>
-            <input id="mid-low" type="range" min="-30" max="30" value="0" style="margin-right: 25px;">
-          </div>
-          <div>
-            <label for="mid" style="margin-left: 10px;">Mid</label>
-            <input id="mid" type="range" min="-30" max="30" value="0">
-          </div>
-          <div>
-            <label for="mid-high">Mid-High</label>
-            <input id="mid-high" type="range" min="-30" max="30" value="0" style="margin-right: 29px;">
-          </div>
-          <div>
-            <label for="treble">Treble</label>
-            <input id="treble" type="range" min="-30" max="30" value="0" style="margin-right: 9px;">
-          </div>
-        </div>
-        <canvas id="audioVisualizer" width="225" height="50"></canvas>
       </section>
 
       <!-- Reproductor a la par de la lista de canciones -->
@@ -80,30 +54,12 @@
           <button id="player_skip">⏭️</button>
         </div>
         <div id="song_info" class="song-info">
+          <br>
           <p>Selecciona una canción para reproducir</p>
         </div>
         <input id="progressbarSong" type="range" min="0" max="100" value="0" class="progress-bar">
-      </section>
-    </section>
-
-    <!-- Sección de géneros musicales y artistas en paralelo -->
-    <section class="featured-genere-artist">
-      <section class="featured-artist">
-        <h2>Artistas</h2>
-        <ul class="artist-list">
-          <li class="artist-item">Avicii</li>
-        </ul>
-      </section>
-
-      <section class="featured-genere">
-        <h2>Generos musicales</h2>
-        <ul class="genere-list">
-          <li class="genere-item">EDM</li>
-          <li class="genere-item">Reggaeton</li>
-          <li class="genere-item">Cumbia</li>
-          <li class="genere-item">Rap</li>
-          <li class="genere-item">Hip-Hop</li>
-        </ul>
+        <!-- Reproductor de audio -->
+        <source src="{{ song_url }}" type="audio/mpeg">
       </section>
     </section>
   </main>
