@@ -21,10 +21,20 @@
     </div>
     <nav>
       <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Buscar</a></li>
-        <li><a href="#">Mis Listas</a></li>
-        <li><a href="#">Perfil</a></li>
+        <li>
+          <!-- Mostrar el correo electrónico del usuario -->
+          {% if email %}
+          <p>Bienvenido, <strong>{{ email }}</strong></p>
+          {% else %}
+          <p>Bienvenido, invitado</p>
+          {% endif %}
+        </li>
+        <li>
+          <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">
+            Cerrar Sesión
+          </a>
+        </li>
+
       </ul>
     </nav>
   </header>
@@ -37,11 +47,22 @@
 
       <section class="featured-song">
         <h2>Lista de Canciones Ordenadas por Artista</h2>
+        <br>
+
+        <!-- Campo de búsqueda -->
+        <form method="get" action="{% url 'home_user' %}" class="search-form">
+          <input type="text" name="query" placeholder="Buscar canciones..." class="search-input">
+          <button type="submit" class="search-button">Buscar</button>
+        </form>
+
+        <!-- Lista de canciones -->
         <ul class="song-list">
           {% for song_url in song_urls|sort_by_artist %}
           <li class="song-item" data-file="{{ song_url }}">
             {{ song_url|extract_song_name }}
           </li>
+          {% empty %}
+          <li>No se encontraron canciones.</li>
           {% endfor %}
         </ul>
       </section>

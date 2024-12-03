@@ -45,8 +45,9 @@ def login_view(request):
         try:
             # Verificar las credenciales del usuario en Firebase
             user = auth.get_user_by_email(email)
-            # Aquí puedes agregar lógica para validar la contraseña
-            # O si estás usando Firebase Admin SDK para login, puedes generar un JWT o similar
+
+            # Almacenar el correo electrónico en la sesión
+            request.session['email'] = email
 
             return redirect('home_user')  # Redirigir al home si login es exitoso
 
@@ -55,11 +56,18 @@ def login_view(request):
 
     return render(request, 'web/login.html')
 
+
 def home_user(request):
-    # Obtén el bucket de almacenamiento
+    # Obtener el correo electrónico de la sesión
+    email = request.session.get('email', None)
+
+    # Obtener el término de búsqueda de la solicitud GET
+    query = request.GET.get('query', '').lower()
+
+    # Obtener el bucket de almacenamiento
     bucket = storage.bucket()
 
-    # Obtén todos los blobs en la carpeta 'music/'
+    # Obtener todos los blobs en la carpeta 'music/'
     blobs = bucket.list_blobs(prefix='music/')
 
     # Lista para almacenar las URLs de las canciones
@@ -67,10 +75,18 @@ def home_user(request):
 
     # Recorre los blobs (archivos) en el bucket
     for index, blob in enumerate(blobs):
-        # Evitar agregar la primera URL nula
         if index > 0:  # Omite el primer blob
             song_url = blob.generate_signed_url(expiration=datetime.timedelta(minutes=60), method='GET')
-            song_urls.append(song_url)
+            song_name = blob.name.lower()  # Convierte el nombre de la canción a minúsculas para comparación
+            # Filtra según el término de búsqueda
+            if query in song_name:
+                song_urls.append(song_url)
 
-    # Pasa la lista de URLs a la plantilla
-    return render(request, 'web/home_user.html', {'song_urls': song_urls})
+    # Pasa la lista de URLs, el término de búsqueda y el correo al contexto
+    return render(request, 'web/home_user.html', {'song_urls': song_urls, 'query': query, 'email': email})
+
+def logout_view(request):
+    # Limpiar la sesión del usuario
+    request.session.flush()
+    # Redirigir al usuario a la página de inicio de sesión o la página principal
+    return redirect('login')

@@ -87,6 +87,40 @@ main {
   text-align: center;
 }
 
+.song-list {
+  max-height: 400px;
+  /* Altura máxima fija */
+  overflow-y: auto;
+  /* Habilitar scroll vertical */
+  padding: 10px;
+  border: 1px solid #048ABF;
+  /* Opcional: bordes */
+  border-radius: 5px;
+  background-color: #222;
+  /* Fondo del contenedor */
+}
+
+/* Estilo opcional para personalizar el scrollbar */
+.song-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.song-list::-webkit-scrollbar-track {
+  background: #444;
+  /* Color de fondo del track */
+}
+
+.song-list::-webkit-scrollbar-thumb {
+  background: #04C4D9;
+  /* Color del scroll */
+  border-radius: 5px;
+}
+
+.song-list::-webkit-scrollbar-thumb:hover {
+  background: #048ABF;
+  /* Color del scroll al pasar el mouse */
+}
+
 .song-item {
   padding: 15px;
   margin: 10px 0;
@@ -217,49 +251,32 @@ footer {
   width: 100%;
 }
 
-/* Ecualizador */
-.equalizer {
-  background-color: #222;
-  padding-top: 125px;
-  margin-top: 0px;
-  text-align: center;
-}
-
-.controls {
-  margin-left: 20px;
-  justify-content: space-around;
+/* Estilo del formulario de búsqueda */
+.search-form {
   margin-bottom: 20px;
-}
-
-.controls div {
   text-align: center;
 }
 
-.controls input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 120px;
-  height: 8px;
-  background-color: #444;
+.search-input {
+  padding: 10px;
+  width: 70%;
+  font-size: 16px;
+  border: 1px solid #048ABF;
   border-radius: 5px;
   outline: none;
-  margin-top: 10px;
 }
 
-.controls input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  background-color: #04C4D9;
-  border-radius: 50%;
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #048ABF;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.controls input[type="range"]::-moz-range-thumb {
-  width: 15px;
-  height: 15px;
+.search-button:hover {
   background-color: #04C4D9;
-  border-radius: 50%;
-  cursor: pointer;
 }
