@@ -4,6 +4,7 @@ class MusicPlayer {
         this.playlist = [];
         this.currentIndex = 0;
         this.progressBar = document.getElementById('progressbarSong');
+        this.volumeControl = document.getElementById('volumeControl'); // Referencia al control de volumen
         this.songInfo = document.getElementById('song_info');
         this.init();
     }
@@ -13,6 +14,13 @@ class MusicPlayer {
         this.setupControls();
         this.audio.ontimeupdate = () => this.updateProgressBar();
         this.audio.onended = () => this.skipSong();
+        this.setupVolumeControl(); // Configuración del control de volumen
+    }
+
+    setupVolumeControl() {
+        this.volumeControl.addEventListener('input', (e) => {
+            this.audio.volume = e.target.value; // Ajustar el volumen del audio
+        });
     }
 
     loadPlaylist() {
@@ -32,11 +40,8 @@ class MusicPlayer {
         const songUrl = this.playlist[this.currentIndex];
         if (songUrl) {
             try {
-                // Extraer la parte antes del primer signo de interrogación ("?")
                 const cleanUrl = songUrl.split('?')[0];
-                // Obtener solo el nombre del archivo
                 const fileName = cleanUrl.split('/').pop();
-                // Limpiar el nombre del archivo y hacerlo legible
                 const cleanName = decodeURIComponent(fileName.replace('.mp3', '').replace(/_/g, ' '));
                 this.songInfo.innerHTML = `<p>${cleanName}</p>`;
             } catch (error) {
@@ -47,9 +52,7 @@ class MusicPlayer {
             this.songInfo.innerHTML = `<p>No hay información disponible</p>`;
         }
     }
-    
-       
-    
+
     playSong() {
         const songUrl = this.playlist[this.currentIndex];
         if (songUrl) {

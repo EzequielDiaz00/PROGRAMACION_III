@@ -7,6 +7,7 @@
 
 /* Estilos generales */
 body {
+  background-image: url('/static/img/logo-player-100.jpg');
   font-family: Arial, sans-serif;
   background-color: #011C26;
   color: #FFFFFF;
@@ -82,7 +83,7 @@ main {
   /* Cada sección ocupa la mitad del espacio disponible */
   background-color: #222;
   color: #04C4D9;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 10px 10px 10px 10px;
   padding: 20px;
   text-align: center;
 }
