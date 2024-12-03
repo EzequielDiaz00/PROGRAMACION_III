@@ -5,36 +5,37 @@
   box-sizing: border-box;
 }
 
-/* Estilos generales */
+/* Estilos globales */
 body {
   background-image: url('/static/img/logo-player-100.jpg');
-  font-family: Arial, sans-serif;
   background-color: #011C26;
   color: #FFFFFF;
+  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  /* Para que header se coloque encima de main */
   height: 100vh;
   overflow-x: hidden;
+}
+
+h1 {
+  font-size: 70px;
 }
 
 /* Barra de navegación */
 header {
   background-color: #222;
-  color: #fff;
+  color: #FFF;
   padding: 15px;
   text-align: center;
   position: relative;
   z-index: 1;
   width: 100%;
-  /* Asegura que ocupe todo el ancho */
 }
 
 header .logo h1 {
   margin: 0;
 }
 
-/* Barra de navegación */
 .navbar ul {
   list-style: none;
   display: flex;
@@ -59,17 +60,14 @@ header .logo h1 {
   border-radius: 5px;
 }
 
-/* Sección principal */
+/* Sección principal y layout general */
 main {
   display: flex;
   flex-direction: column;
-  /* Asegura que los elementos de main se alineen verticalmente */
   flex: 1;
-  /* Ocupa el espacio restante de la pantalla */
   padding: 20px;
 }
 
-/* Contenedor de canciones y reproductor */
 .featured-song-player {
   display: flex;
   gap: 20px;
@@ -80,46 +78,38 @@ main {
 /* Sección de canciones */
 .featured-song {
   flex: 1;
-  /* Cada sección ocupa la mitad del espacio disponible */
   background-color: #222;
   color: #04C4D9;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 10px;
   padding: 20px;
   text-align: center;
 }
 
 .song-list {
   max-height: 400px;
-  /* Altura máxima fija */
   overflow-y: auto;
-  /* Habilitar scroll vertical */
   padding: 10px;
   border: 1px solid #048ABF;
-  /* Opcional: bordes */
   border-radius: 5px;
   background-color: #222;
-  /* Fondo del contenedor */
 }
 
-/* Estilo opcional para personalizar el scrollbar */
+/* Personalización del scroll */
 .song-list::-webkit-scrollbar {
   width: 8px;
 }
 
 .song-list::-webkit-scrollbar-track {
   background: #444;
-  /* Color de fondo del track */
 }
 
 .song-list::-webkit-scrollbar-thumb {
   background: #04C4D9;
-  /* Color del scroll */
   border-radius: 5px;
 }
 
 .song-list::-webkit-scrollbar-thumb:hover {
   background: #048ABF;
-  /* Color del scroll al pasar el mouse */
 }
 
 .song-item {
@@ -129,8 +119,8 @@ main {
   color: #BF0449;
   background-color: #048ABF;
   border-radius: 5px;
-  cursor: pointer;
   text-align: center;
+  cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -140,10 +130,8 @@ main {
 }
 
 /* Reproductor */
-
 .player {
   flex: 1;
-  /* Cada sección ocupa la mitad del espacio disponible */
   background-color: #222;
   color: #04C4D9;
   border-radius: 10px;
@@ -160,7 +148,7 @@ main {
 .player-controls button {
   background-color: #048ABF;
   border: none;
-  color: #FFFFFF;
+  color: #FFF;
   font-size: 24px;
   margin: 0 10px;
   padding: 12px;
@@ -179,19 +167,10 @@ main {
   background-color: #444;
   height: 8px;
   border-radius: 5px;
-  outline: none;
   appearance: none;
 }
 
-.progress-bar::-webkit-slider-thumb {
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  background-color: #04C4D9;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
+.progress-bar::-webkit-slider-thumb,
 .progress-bar::-moz-range-thumb {
   width: 15px;
   height: 15px;
@@ -200,7 +179,7 @@ main {
   cursor: pointer;
 }
 
-/* Sección de géneros musicales y artistas en paralelo */
+/* Sección de géneros musicales y artistas */
 .featured-genere-artist {
   display: flex;
   gap: 20px;
@@ -244,7 +223,7 @@ main {
 footer {
   margin-top: 50px;
   font-size: 14px;
-  color: #FFFFFF;
+  color: #FFF;
   background-color: #222;
   padding: 10px 0;
   border-top: 2px solid #011C26;
@@ -252,7 +231,7 @@ footer {
   width: 100%;
 }
 
-/* Estilo del formulario de búsqueda */
+/* Formulario de búsqueda */
 .search-form {
   margin-bottom: 20px;
   text-align: center;
@@ -271,7 +250,7 @@ footer {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #048ABF;
-  color: #FFFFFF;
+  color: #FFF;
   border: none;
   border-radius: 5px;
   cursor: pointer;

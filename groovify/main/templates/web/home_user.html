@@ -4,9 +4,10 @@
 {% load song_filters %}
 
 <head>
+  <!-- Metadatos y archivos estáticos -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Groovify - Musica en Streaming</title>
+  <title>Groovify UGB - Música en Streaming</title>
   <link rel="stylesheet" href="{% static 'css/css2.css' %}">
   <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 </head>
@@ -15,14 +16,13 @@
   <!-- Barra de navegación -->
   <header class="navbar">
     <div class="logo">
-      <br>
       <h1>Groovify</h1>
-      <br>
     </div>
+    <br>
     <nav>
       <ul>
         <li>
-          <!-- Mostrar el correo electrónico del usuario -->
+          <!-- Mostrar el correo del usuario si está autenticado -->
           {% if email %}
           <p>Bienvenido, <strong>{{ email }}</strong></p>
           {% else %}
@@ -30,33 +30,28 @@
           {% endif %}
         </li>
         <li>
+          <!-- Botón de cerrar sesión -->
           <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">
             Cerrar Sesión
           </a>
         </li>
-
       </ul>
     </nav>
   </header>
 
   <!-- Sección principal -->
   <main>
-    <!-- Sección de la lista de canciones y reproductor en paralelo -->
     <section id="main" class="featured-song-player">
-      {% load song_filters %}
-
+      <!-- Lista de canciones y barra de búsqueda -->
       <section class="featured-song">
         <h2>Lista de Canciones Ordenadas por Artista</h2>
         <br>
-
-        <!-- Campo de búsqueda -->
-        <form method="get" action="{% url 'home_user' %}" class="search-form">
-          <input type="text" name="query" placeholder="Buscar canciones..." class="search-input">
-          <button type="submit" class="search-button">Buscar</button>
-        </form>
-
-        <!-- Lista de canciones -->
         <ul class="song-list">
+          <form method="get" action="{% url 'home_user' %}" class="search-form">
+            <input type="text" name="query" placeholder="Buscar canciones..." class="search-input">
+            <button type="submit" class="search-button">Buscar</button>
+          </form>
+
           {% for song_url in song_urls|sort_by_artist %}
           <li class="song-item" data-file="{{ song_url }}">
             {{ song_url|extract_song_name }}
@@ -67,7 +62,7 @@
         </ul>
       </section>
 
-      <!-- Reproductor a la par de la lista de canciones -->
+      <!-- Reproductor de música -->
       <section id="player" class="player">
         <img src="{% static 'img/favicon.webp' %}" alt="portada-song" class="portada-song">
         <div id="player_controls" class="player-controls">
@@ -76,6 +71,7 @@
           <button id="player_pause">⏸</button>
           <button id="player_stop">⏹️</button>
           <button id="player_skip">⏭️</button>
+          <!-- Control de volumen -->
           <label for="volumeControl">🔊</label>
           <input id="volumeControl" type="range" min="0" max="1" step="0.01" value="1" class="volume-slider">
         </div>
@@ -89,17 +85,18 @@
     </section>
   </main>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
     const playlist = [];
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.song-item').forEach(item => {
-        playlist.push(item.dataset.file); // Agrega las rutas a la lista de reproducción
+        playlist.push(item.dataset.file); // Agregar canciones a la lista de reproducción
       });
     });
   </script>
   <script src="{% static 'js/dashboardUser.js' %}"></script>
 
+  <!-- Pie de página -->
   <footer>
     <p>&copy; 2024 Groovify. Todos los derechos reservados.</p>
   </footer>

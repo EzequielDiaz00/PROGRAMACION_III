@@ -4,25 +4,28 @@ class MusicPlayer {
         this.playlist = [];
         this.currentIndex = 0;
         this.progressBar = document.getElementById('progressbarSong');
-        this.volumeControl = document.getElementById('volumeControl'); // Referencia al control de volumen
+        this.volumeControl = document.getElementById('volumeControl');
         this.songInfo = document.getElementById('song_info');
         this.init();
     }
 
+    // Inicializa el reproductor y configura los controles
     init() {
         this.loadPlaylist();
         this.setupControls();
         this.audio.ontimeupdate = () => this.updateProgressBar();
         this.audio.onended = () => this.skipSong();
-        this.setupVolumeControl(); // Configuración del control de volumen
+        this.setupVolumeControl();
     }
 
+    // Configura el control de volumen
     setupVolumeControl() {
         this.volumeControl.addEventListener('input', (e) => {
-            this.audio.volume = e.target.value; // Ajustar el volumen del audio
+            this.audio.volume = e.target.value;
         });
     }
 
+    // Carga las canciones en la lista de reproducción
     loadPlaylist() {
         document.querySelectorAll('.song-item').forEach(item => {
             const songUrl = item.dataset.file;
@@ -36,6 +39,7 @@ class MusicPlayer {
         });
     }
 
+    // Actualiza la información de la canción actual
     updateSongInfo() {
         const songUrl = this.playlist[this.currentIndex];
         if (songUrl) {
@@ -53,6 +57,7 @@ class MusicPlayer {
         }
     }
 
+    // Reproduce la canción seleccionada
     playSong() {
         const songUrl = this.playlist[this.currentIndex];
         if (songUrl) {
@@ -63,31 +68,37 @@ class MusicPlayer {
         }
     }
 
+    // Pausa la canción
     pauseSong() {
         this.audio.pause();
     }
 
+    // Detiene la canción y reinicia su tiempo
     stopSong() {
         this.audio.pause();
         this.audio.currentTime = 0;
     }
 
+    // Avanza a la siguiente canción
     skipSong() {
         this.currentIndex = (this.currentIndex + 1) % this.playlist.length;
         this.playSong();
     }
 
+    // Reproduce la canción anterior
     backSong() {
         this.currentIndex = (this.currentIndex - 1 + this.playlist.length) % this.playlist.length;
         this.playSong();
     }
 
+    // Actualiza la barra de progreso mientras la canción se reproduce
     updateProgressBar() {
         if (this.audio.duration) {
             this.progressBar.value = (this.audio.currentTime / this.audio.duration) * 100;
         }
     }
 
+    // Configura los controles del reproductor
     setupControls() {
         document.getElementById('player_play').addEventListener('click', () => this.playSong());
         document.getElementById('player_pause').addEventListener('click', () => this.pauseSong());
